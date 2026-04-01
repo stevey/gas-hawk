@@ -352,4 +352,24 @@ document.addEventListener('DOMContentLoaded', () => {
   initSettings();
   initRefreshBtn();
   refresh();
+
+  let currentAudio = null;
+
+  const icon = document.querySelector('.app-icon');
+  if (icon) {
+    icon.style.cursor = 'pointer';
+    icon.addEventListener('click', () => {
+      currentAudio = new Audio('public/sounds/eagle-burnout.mp3');
+      currentAudio.play();
+      currentAudio.addEventListener('ended', () => { currentAudio = null; });
+    });
+  }
+
+  document.addEventListener('keydown', e => {
+    if ((e.code === 'Space' || e.code === 'Escape') && currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      currentAudio = null;
+    }
+  });
 });
