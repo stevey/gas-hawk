@@ -1,0 +1,357 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+  --bg:         #1c1c1e;
+  --bar-bg:     #000000;
+  --card-bg:    #2c2c2e;
+  --card-hover: #3a3a3c;
+  --green:      #30d158;
+  --blue:       #0a84ff;
+  --text:       #ffffff;
+  --subtext:    rgba(235, 235, 245, 0.8);
+  --muted:      #636366;
+  --border:     #38383a;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+  height: 100%;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* ── Top Bar ── */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: var(--bar-bg);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.app-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 9px;
+  object-fit: cover;
+}
+
+.app-title {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: var(--green);
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.countdown {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--muted);
+  min-width: 40px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.icon-btn {
+  background: var(--card-bg);
+  border: none;
+  color: var(--text);
+  font-size: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 11px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.1s;
+  flex-shrink: 0;
+}
+
+.icon-btn:active { background: var(--card-hover); }
+
+/* ── Control Bar ── */
+.control-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  gap: 12px;
+}
+
+.gas-selector {
+  display: flex;
+  gap: 8px;
+}
+
+.gas-btn {
+  background: var(--card-bg);
+  border: 2px solid transparent;
+  color: var(--subtext);
+  font-size: 15px;
+  font-weight: 700;
+  padding: 9px 20px;
+  border-radius: 22px;
+  cursor: pointer;
+  transition: all 0.12s;
+  white-space: nowrap;
+}
+
+.gas-btn.active {
+  background: var(--green);
+  color: #000;
+}
+
+.gas-btn:active { opacity: 0.75; }
+
+.status-text {
+  font-size: 13px;
+  color: var(--muted);
+  text-align: right;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── Cards ── */
+.cards {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px 20px;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.card {
+  flex: 1;
+  min-height: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.card-inner {
+  display: flex;
+  align-items: center;
+  background: var(--card-bg);
+  border-radius: 18px;
+  padding: 16px 18px;
+  height: 100%;
+  gap: 14px;
+  transition: background 0.12s;
+}
+
+.card:active .card-inner { background: var(--card-hover); }
+
+.card-inner.loading { opacity: 0.45; }
+
+.card-inner.empty {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.card-range {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+
+.card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.card-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.card-price {
+  font-size: 52px;
+  font-weight: 700;
+  color: var(--green);
+  line-height: 1;
+  letter-spacing: -1px;
+  font-variant-numeric: tabular-nums;
+}
+
+.card-price-unit {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--muted);
+  margin-left: 2px;
+}
+
+.card-inner.empty .card-price {
+  font-size: 22px;
+  color: var(--muted);
+  letter-spacing: 0;
+}
+
+.card-station {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--subtext);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 4px;
+}
+
+.card-distance {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.card-arrow {
+  font-size: 36px;
+  color: var(--muted);
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.card-inner.empty .card-arrow { display: none; }
+
+/* ── Settings Overlay ── */
+.settings-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 100;
+}
+
+.settings-overlay.hidden { display: none; }
+
+.settings-panel {
+  background: #2c2c2e;
+  border-top: 1px solid var(--border);
+  border-radius: 20px 20px 0 0;
+  width: 100%;
+  max-width: 960px;
+  padding: 20px 24px 48px;
+}
+
+.settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.settings-title {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.close-btn {
+  background: var(--card-hover);
+  border: none;
+  color: var(--subtext);
+  font-size: 16px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.settings-section { margin-bottom: 24px; }
+
+.settings-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.option-group {
+  display: flex;
+  gap: 10px;
+}
+
+.option-btn {
+  flex: 1;
+  background: var(--bg);
+  border: 2px solid transparent;
+  color: var(--subtext);
+  font-size: 16px;
+  font-weight: 600;
+  padding: 18px 8px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+
+.option-btn.active {
+  background: var(--blue);
+  color: #fff;
+}
+
+.option-btn:active { opacity: 0.75; }
+
+/* ── Landscape / small height ── */
+@media (max-height: 520px) {
+  .card-price { font-size: 38px; }
+  .cards { gap: 8px; padding: 10px 16px; }
+  .card-inner { padding: 10px 14px; }
+  .card-station { font-size: 14px; }
+}
+
+@media (max-width: 400px) {
+  .app-title { font-size: 18px; letter-spacing: 2px; }
+  .gas-btn { font-size: 13px; padding: 8px 14px; }
+  .card-price { font-size: 42px; }
+}

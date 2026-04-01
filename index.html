@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Gas Hawk</title>
+  <link rel="icon" href="public/images/gas-hawk-icon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- Top Bar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <img src="public/images/gas-hawk-icon.png" class="app-icon" alt="">
+        <span class="app-title">GAS HAWK</span>
+      </div>
+      <div class="topbar-right">
+        <span class="countdown" id="countdown"></span>
+        <button class="icon-btn" id="refreshBtn" aria-label="Refresh">&#x21BB;</button>
+        <button class="icon-btn" id="settingsBtn" aria-label="Settings">&#9881;</button>
+      </div>
+    </header>
+
+    <!-- Gas Type + Status Bar -->
+    <div class="control-bar">
+      <div class="gas-selector" id="gasSelector">
+        <button class="gas-btn" data-type="regular">Regular</button>
+        <button class="gas-btn" data-type="super">Super</button>
+        <button class="gas-btn" data-type="diesel">Diesel</button>
+      </div>
+      <div class="status-text" id="statusText">Starting…</div>
+    </div>
+
+    <!-- Price Cards -->
+    <main class="cards">
+
+      <div class="card" id="card-1km">
+        <div class="card-inner loading">
+          <div class="card-range">&lt;1 KM</div>
+          <div class="card-content">
+            <div class="card-label">NEAREST</div>
+            <div class="card-price">--</div>
+            <div class="card-station">Searching…</div>
+            <div class="card-distance"></div>
+          </div>
+          <div class="card-arrow">&#8250;</div>
+        </div>
+      </div>
+
+      <div class="card" id="card-10km">
+        <div class="card-inner loading">
+          <div class="card-range">&lt;10 KM</div>
+          <div class="card-content">
+            <div class="card-label">CLOSE</div>
+            <div class="card-price">--</div>
+            <div class="card-station">Searching…</div>
+            <div class="card-distance"></div>
+          </div>
+          <div class="card-arrow">&#8250;</div>
+        </div>
+      </div>
+
+      <div class="card" id="card-100km">
+        <div class="card-inner loading">
+          <div class="card-range">&lt;100 KM</div>
+          <div class="card-content">
+            <div class="card-label">REGIONAL</div>
+            <div class="card-price">--</div>
+            <div class="card-station">Searching…</div>
+            <div class="card-distance"></div>
+          </div>
+          <div class="card-arrow">&#8250;</div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Settings Overlay -->
+  <div class="settings-overlay hidden" id="settingsOverlay">
+    <div class="settings-panel" id="settingsPanel">
+      <div class="settings-header">
+        <span class="settings-title">Settings</span>
+        <button class="close-btn" id="closeSettings">&#x2715;</button>
+      </div>
+      <div class="settings-section">
+        <div class="settings-label">Refresh Interval</div>
+        <div class="option-group" id="intervalSelector">
+          <button class="option-btn" data-value="30">30 sec</button>
+          <button class="option-btn" data-value="60">1 min</button>
+          <button class="option-btn" data-value="120">2 min</button>
+          <button class="option-btn" data-value="300">5 min</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
