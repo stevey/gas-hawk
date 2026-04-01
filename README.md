@@ -2,6 +2,8 @@
 
 A CarPlay-inspired gas price tracker for Quebec, built as a proof-of-concept web app. Designed for use while driving — big buttons, large fonts, zero confirmation dialogs.
 
+![Gas Hawk screenshot](public/images/screenshot.png)
+
 ## What It Does
 
 Gas Hawk uses your current location to find the **cheapest gas price** in three distance rings:
