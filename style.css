@@ -342,6 +342,21 @@ html, body {
 
 .option-btn:active { opacity: 0.75; }
 
+.settings-credit {
+  font-size: 11px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 8px;
+  opacity: 0.6;
+}
+
+.settings-credit a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.settings-credit a:hover { opacity: 0.8; }
+
 /* ── Landscape / small height ── */
 @media (max-height: 520px) {
   .card-price { font-size: 38px; }
