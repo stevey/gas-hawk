@@ -345,12 +345,27 @@ function initRefreshBtn() {
   document.getElementById('refreshBtn').addEventListener('click', forceRefresh);
 }
 
+function initCardHold() {
+  document.querySelectorAll('.card').forEach(card => {
+    const inner = card.querySelector('.card-inner');
+
+    const startHold = () => inner.classList.add('holding');
+    const endHold   = () => inner.classList.remove('holding');
+
+    card.addEventListener('pointerdown',   startHold);
+    card.addEventListener('pointerup',     endHold);
+    card.addEventListener('pointerleave',  endHold);
+    card.addEventListener('pointercancel', endHold);
+  });
+}
+
 // ─── Boot ─────────────────────────────────────────────────────────────────────
 
 document.addEventListener('DOMContentLoaded', () => {
   initGasSelector();
   initSettings();
   initRefreshBtn();
+  initCardHold();
   refresh();
 
   let currentAudio = null;

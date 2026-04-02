@@ -1,5 +1,14 @@
 # Release Notes
 
+## Version 1.0.2
+_April 2026_
+
+### What's New
+
+- Press and hold any price card to reveal navigation intent: the distance badge grows and turns green, the arrow doubles in size, turns green, and bounces — release to cancel or lift to navigate
+
+---
+
 ## Version 1.0.1
 _April 2026_
 

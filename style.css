@@ -258,6 +258,30 @@ html, body {
 
 .card-inner.empty .card-arrow { display: none; }
 
+/* ── Hold-to-navigate feedback ── */
+@keyframes arrow-nudge {
+  0%, 100% { transform: translateX(0); }
+  50%       { transform: translateX(5px); }
+}
+
+.card-inner.holding .card-range {
+  color: #30d158;
+  font-size: 17px;
+  transition: color 0.15s ease, font-size 0.15s ease;
+}
+
+.card-inner.holding .card-arrow {
+  color: #30d158;
+  font-size: 72px;
+  animation: arrow-nudge 0.55s ease-in-out infinite;
+  transition: color 0.15s ease, font-size 0.15s ease;
+}
+
+.card-range,
+.card-arrow {
+  transition: color 0.15s ease, font-size 0.15s ease;
+}
+
 /* ── Settings Overlay ── */
 .settings-overlay {
   position: fixed;
