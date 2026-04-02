@@ -374,6 +374,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (icon) {
     icon.style.cursor = 'pointer';
     icon.addEventListener('click', () => {
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        currentAudio = null;
+        return;
+      }
       currentAudio = new Audio('public/sounds/eagle-burnout.mp3');
       currentAudio.play();
       currentAudio.addEventListener('ended', () => { currentAudio = null; });

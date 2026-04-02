@@ -1,5 +1,15 @@
 # Release Notes
 
+## Version 1.0.3
+_April 2026_
+
+### What's New
+
+- Tapping the logo while sound is playing now stops it; tapping again restarts — no more overlapping playback
+- Author credit and Bluesky bug report link added to Settings
+
+---
+
 ## Version 1.0.2
 _April 2026_
 
