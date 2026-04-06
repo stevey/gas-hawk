@@ -282,6 +282,66 @@ html, body {
   transition: color 0.15s ease, font-size 0.15s ease;
 }
 
+/* ── Location Error State ── */
+.location-error {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.location-error.hidden { display: none; }
+
+.location-error-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  max-width: 300px;
+}
+
+.location-error-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.location-error-msg {
+  font-size: 16px;
+  color: var(--subtext);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.location-error-hint {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.location-error-btn {
+  background: var(--blue);
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 14px 36px;
+  border-radius: 14px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: opacity 0.1s;
+}
+
+.location-error-btn:active { opacity: 0.75; }
+
+/* ── Status error highlight ── */
+.status-text.error { color: #ff453a; }
+
+.cards.hidden { display: none; }
+
 /* ── Settings Overlay ── */
 .settings-overlay {
   position: fixed;

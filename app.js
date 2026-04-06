@@ -146,6 +146,21 @@ async function loadStations() {
   }
 }
 
+async function loadStationsWithRetry() {
+  for (let attempt = 0; attempt < 3; attempt++) {
+    if (attempt > 0) {
+      setStatus(`Retrying… (${attempt}/2)`);
+      await new Promise(r => setTimeout(r, 2000 * attempt));
+    }
+    try {
+      return await loadStations();
+    } catch (err) {
+      if (attempt === 2) throw err;
+      console.warn(`Station load attempt ${attempt + 1} failed, retrying…`);
+    }
+  }
+}
+
 // ─── Geolocation ──────────────────────────────────────────────────────────────
 
 function getLocation() {
@@ -156,7 +171,13 @@ function getLocation() {
     }
     navigator.geolocation.getCurrentPosition(
       pos => resolve({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
-      ()  => reject(new Error('Location access denied — please enable location services.')),
+      err => {
+        const e = new Error(err.code === 1
+          ? 'Location access denied.'
+          : 'Location unavailable — please check your device settings.');
+        e.locationDenied = err.code === 1;
+        reject(e);
+      },
       { enableHighAccuracy: true, timeout: 10000, maximumAge: 30000 }
     );
   });
@@ -225,7 +246,28 @@ function renderCards(bucketResults) {
 
 function setStatus(msg) {
   const el = document.getElementById('statusText');
-  if (el) el.textContent = msg;
+  if (el) {
+    el.textContent = msg;
+    el.classList.remove('error');
+  }
+}
+
+function setError(msg) {
+  const el = document.getElementById('statusText');
+  if (el) {
+    el.textContent = msg;
+    el.classList.add('error');
+  }
+}
+
+function showLocationError() {
+  document.getElementById('locationError').classList.remove('hidden');
+  document.querySelector('.cards').classList.add('hidden');
+}
+
+function hideLocationError() {
+  document.getElementById('locationError').classList.add('hidden');
+  document.querySelector('.cards').classList.remove('hidden');
 }
 
 // ─── Countdown & Refresh ──────────────────────────────────────────────────────
@@ -256,6 +298,7 @@ async function refresh() {
   if (state.loading) return;
   state.loading = true;
   clearInterval(state.countdownTimer);
+  hideLocationError();
 
   const btn = document.getElementById('refreshBtn');
   if (btn) btn.style.opacity = '0.4';
@@ -265,11 +308,11 @@ async function refresh() {
 
     // Fetch stations once; re-use on subsequent refreshes
     const [location, stations] = await Promise.all([
-      getLocation().catch(() => {
+      getLocation().catch(err => {
         if (state.userLat !== null) return { lat: state.userLat, lng: state.userLng };
-        throw new Error('Location unavailable — please allow location access.');
+        throw err; // preserve locationDenied flag
       }),
-      state.stations ? Promise.resolve(state.stations) : loadStations(),
+      state.stations ? Promise.resolve(state.stations) : loadStationsWithRetry(),
     ]);
 
     state.userLat  = location.lat;
@@ -282,7 +325,12 @@ async function refresh() {
     const t = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     setStatus(`Updated ${t}`);
   } catch (err) {
-    setStatus(err.message || 'Error loading data');
+    if (err.locationDenied) {
+      showLocationError();
+      setStatus('Location access needed');
+    } else {
+      setError(err.message || 'Error loading data — tap \u21BB to retry');
+    }
     console.error(err);
   } finally {
     state.loading = false;
@@ -345,6 +393,20 @@ function initRefreshBtn() {
   document.getElementById('refreshBtn').addEventListener('click', forceRefresh);
 }
 
+function initLocationError() {
+  let denied = false;
+  document.getElementById('locationErrorBtn').addEventListener('click', () => {
+    if (denied) {
+      // Already denied once — update hint to guide user to settings
+      document.getElementById('locationErrorHint').textContent =
+        'Location is blocked. To fix this, go to your browser\'s site settings and allow location for this page.';
+    }
+    denied = true;
+    hideLocationError();
+    refresh();
+  });
+}
+
 function initCardHold() {
   document.querySelectorAll('.card').forEach(card => {
     const inner = card.querySelector('.card-inner');
@@ -365,6 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initGasSelector();
   initSettings();
   initRefreshBtn();
+  initLocationError();
   initCardHold();
   refresh();
 

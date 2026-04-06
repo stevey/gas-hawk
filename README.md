@@ -26,6 +26,8 @@ Data is sourced from the **Régie de l'énergie du Québec** — the same data t
 - **One-tap directions** — opens your default maps app with the destination pre-filled
 - **Persistent settings** — fuel type and refresh interval are saved across sessions via `localStorage`
 - **Offline-tolerant** — falls back gracefully through three data sources (see below)
+- **Location error state** — clear prompt with a "Try Again" button if location access is denied
+- **Retry on failure** — data loading automatically retries up to twice before surfacing an error
 
 ## Getting Started
 

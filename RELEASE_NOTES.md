@@ -1,5 +1,16 @@
 # Release Notes
 
+## Version 1.0.4
+_April 2026_
+
+### What's New
+
+- Location denied error state — if Gas Hawk can't see your location, the cards are replaced with a clear message and a "Try Again" button; a second denial updates the hint to point you to browser settings
+- Data loading retry — if the station feed fails to load, the app retries up to two more times (with a short delay) before giving up
+- Error state in status bar — data load failures now show in red with a prompt to tap the refresh button
+
+---
+
 ## Version 1.0.3
 _April 2026_
 
